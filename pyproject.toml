@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "experiment_handling"
+authors = [
+    {name = "Jona Östreicher", email = "jona.oestreicher@kit.edu"},
+]
+dependencies = [
+    "wandb",
+    "omegaconf",
+]
+dynamic = ["version"]

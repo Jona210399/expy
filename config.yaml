@@ -1,0 +1,26 @@
+experiment:
+  team_name: null
+  project_name: test_project
+  experiment_name: test_experiment
+
+io:
+  root_output_dir: /path/to/output
+  root_input_dir: /path/to/input
+
+environment:
+  num_workers: 4
+  seed: 42
+  mylist:
+    - 1
+    - 2
+    
+training_parameters:
+  epochs: 10
+  batch_size: 32
+  lr: 0.001
+
+wandb:
+  # Set to true to enable wandb logging
+  enabled: true
+  # Provide a run id to resume a run
+  run_id: fijpc18e
