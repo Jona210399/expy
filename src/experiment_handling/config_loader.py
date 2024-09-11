@@ -1,8 +1,9 @@
 from omegaconf import OmegaConf, DictConfig, SCMode
+from pathlib import Path
 
 
 class ConfigLoader:
-    def __init__(self, config_yaml_path: str) -> None:
+    def __init__(self, config_yaml_path: Path) -> None:
         self.config_yaml_path = config_yaml_path
         self.config = self._load_config()
 
