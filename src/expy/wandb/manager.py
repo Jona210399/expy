@@ -6,6 +6,7 @@ import wandb
 from wandb.util import generate_id
 
 from expy.core import Experiment, IOConfiguration
+from expy.distributed.rank_zero import rank_zero_only
 from expy.wandb.dummy_run import WandbDummyRun
 
 
@@ -42,6 +43,7 @@ class WandbManager:
         self.wandb_config = config.wandb
         self.io_config = config.io
 
+    @rank_zero_only(default=lambda: WandbDummyRun())
     def inititialize_wandb(self) -> wandb.wandb_sdk.wandb_run.Run | WandbDummyRun:
         if not self.wandb_config.enabled:
             return WandbDummyRun()

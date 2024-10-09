@@ -39,6 +39,7 @@ def main():
 
     wandb_manager = WandbManager(config)
     wandb_manager.inititialize_wandb()
+    config.io.create_output_dir()
 
     training_process(config.training_parameters)
 
