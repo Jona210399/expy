@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from expy.config_loader import ConfigLoader
+
+from expy.core import ConfigLoader
 
 
 @dataclass

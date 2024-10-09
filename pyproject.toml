@@ -22,3 +22,4 @@ exclude = []
 python = ">=3.10.0,<3.13"
 omegaconf = "^2.3.0"
 wandb = "^0.18.1"
+python-dotenv = "^1.0.1"

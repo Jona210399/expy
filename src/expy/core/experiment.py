@@ -1,6 +1,6 @@
-from datetime import datetime
 from dataclasses import dataclass, field
-from pathlib import PurePath, Path
+from datetime import datetime
+from pathlib import Path, PurePath
 
 
 @dataclass

@@ -1,6 +1,7 @@
-from omegaconf import OmegaConf, DictConfig, SCMode
 from pathlib import Path
 from typing import TypeVar
+
+from omegaconf import DictConfig, OmegaConf, SCMode
 
 T = TypeVar("T")
 

@@ -1,1 +1,1 @@
-from experiment_handling.wandb.manager import WandbManager
+from expy.wandb.manager import WandbConfiguration, WandbManager

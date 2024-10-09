@@ -1,9 +1,7 @@
-from expy.experiment import Experiment
-from expy.enivronment_loader import EnvironmentLoader
-from expy.io import IOConfiguration
-from expy.wandb.manager import WandbConfiguration, WandbManager
-from expy.config_loader import ConfigLoader
 from dataclasses import dataclass
+
+from expy.core import ConfigLoader, Experiment, IOConfiguration
+from expy.wandb import WandbConfiguration, WandbManager
 
 
 @dataclass

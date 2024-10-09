@@ -1,12 +1,12 @@
+import os
 from dataclasses import asdict, dataclass, field
 from typing import Protocol, runtime_checkable
-from experiment_handling.experiment import Experiment
-from experiment_handling.io import IOConfiguration
-from experiment_handling.wandb.dummy_run import WandbDummyRun
+
 import wandb
 from wandb.util import generate_id
 
-import os
+from expy.core import Experiment, IOConfiguration
+from expy.wandb.dummy_run import WandbDummyRun
 
 
 @dataclass
