@@ -1,14 +1,24 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.2.0b2"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
-name = "experiment_handling"
-authors = [
-    {name = "Jona Östreicher", email = "jona.oestreicher@kit.edu"},
+[tool.poetry]
+name = "expy"
+version = "0.0.1"
+description = "A package containing msimplifing the handling of experiments and config loading."
+license = "MIT"
+authors = ["Jona Östreicher <jona.oestreicher@kit.edu>"]
+maintainers = ["Jona Östreicher <jona.oestreicher@kit.edu>"]
+readme = "README.md"
+packages = [
+    { include = "expy", from = "src" }
 ]
-dependencies = [
-    "wandb",
-    "omegaconf",
+include = [
+    "README.md",
 ]
-dynamic = ["version"]
+exclude = []
+
+[tool.poetry.dependencies]
+python = ">=3.10.0,<3.13"
+omegaconf = "^2.3.0"
+wandb = "^0.18.1"
