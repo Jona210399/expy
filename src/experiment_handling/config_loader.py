@@ -1,5 +1,8 @@
 from omegaconf import OmegaConf, DictConfig, SCMode
 from pathlib import Path
+from typing import TypeVar
+
+T = TypeVar("T")
 
 
 class ConfigLoader:
@@ -13,7 +16,7 @@ class ConfigLoader:
     def get_config(self) -> DictConfig:
         return self.config
 
-    def get_config_as_dataclass(self, dataclass: type) -> object:
+    def get_config_as_dataclass(self, dataclass: type[T]) -> T:
         schema = OmegaConf.structured(dataclass)
         config = OmegaConf.merge(self.config, schema)
         OmegaConf.set_readonly(config, False)
