@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from experiment_handling.config_loader import ConfigLoader
+from expy.config_loader import ConfigLoader
 
 
 @dataclass

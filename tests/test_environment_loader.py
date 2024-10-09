@@ -1,4 +1,4 @@
-from experiment_handling.enivronment_loader import EnvironmentLoader
+from expy.enivronment_loader import EnvironmentLoader
 
 
 env_loader = EnvironmentLoader(".env.local")

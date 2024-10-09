@@ -1,8 +1,8 @@
-from experiment_handling.experiment import Experiment
-from experiment_handling.enivronment_loader import EnvironmentLoader
-from experiment_handling.io import IOConfiguration
-from experiment_handling.wandb.manager import WandbConfiguration, WandbManager
-from experiment_handling.config_loader import ConfigLoader
+from expy.experiment import Experiment
+from expy.enivronment_loader import EnvironmentLoader
+from expy.io import IOConfiguration
+from expy.wandb.manager import WandbConfiguration, WandbManager
+from expy.config_loader import ConfigLoader
 from dataclasses import dataclass
 
 
