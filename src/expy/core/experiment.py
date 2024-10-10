@@ -17,6 +17,19 @@ class Experiment:
     def set_date_time(self, date_time: str):
         self.date_time = date_time
 
+    def to_project_root_path(self) -> Path:
+        return PurePath(
+            self.team_name or "",
+            self.project_name,
+        )
+
+    def to_experiment_root_path(self) -> Path:
+        return PurePath(
+            self.team_name or "",
+            self.project_name,
+            self.experiment_name,
+        )
+
     def to_path(self) -> Path:
         return PurePath(
             self.team_name or "",

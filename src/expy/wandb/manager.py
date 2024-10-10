@@ -2,9 +2,9 @@ import os
 from dataclasses import asdict, dataclass, field
 from typing import Protocol, runtime_checkable
 
-import wandb
 from wandb.util import generate_id
 
+import wandb
 from expy.core import Experiment, IOConfiguration
 from expy.distributed.rank_zero import rank_zero_only
 from expy.wandb.dummy_run import WandbDummyRun
@@ -21,6 +21,7 @@ class WandbConfiguration:
             self.resume = False
             self.run_id = generate_id()
             return
+        self.run_id = str(self.run_id)
         self.resume = True
 
 
@@ -43,8 +44,14 @@ class WandbManager:
         self.wandb_config = config.wandb
         self.io_config = config.io
 
-    @rank_zero_only(default=lambda: WandbDummyRun())
-    def inititialize_wandb(self) -> wandb.wandb_sdk.wandb_run.Run | WandbDummyRun:
+    def initialize(self) -> wandb.sdk.wandb_run.Run | WandbDummyRun:
+        run = self._initialize_wandb()
+        return run or WandbDummyRun()
+
+    @rank_zero_only
+    def _initialize_wandb(
+        self,
+    ) -> wandb.sdk.wandb_run.Run | WandbDummyRun | None:
         if not self.wandb_config.enabled:
             return WandbDummyRun()
 
@@ -56,26 +63,33 @@ class WandbManager:
 
         return self._initialize_new_run()
 
-    def _resume_run(self) -> wandb.wandb_sdk.wandb_run.Run:
+    def _resume_run(self) -> wandb.sdk.wandb_run.Run:
+        config: dict = (
+            wandb.Api()
+            .run(
+                self.experiment.to_project_root_path()
+                .joinpath(self.wandb_config.run_id)
+                .as_posix()
+            )
+            .config
+        )
+
+        # Resumed runs should have the same output directory as the original run.
+        experiment: dict = config.get("experiment")
+        self.experiment.set_date_time(experiment.get("date_time"))
+        self.io_config.set_output_dir(self.experiment.to_path())
+
         run = wandb.init(
             project=self.experiment.project_name,
             entity=self.experiment.team_name,
             id=self.wandb_config.run_id,
             resume="must",
             settings=wandb.Settings(_service_wait=300),
+            config=asdict(self.config),
         )
-
-        # Resumed runs should have the same output directory as the original run.
-        experiment: dict = run.config.get("experiment")
-        self.experiment.set_date_time(experiment.get("date_time"))
-        self.io_config.set_output_dir(self.experiment.to_path())
-
-        # Sync configuration changes to the resumed run.
-        run.config.update(asdict(self.config), allow_val_change=True)
-
         return run
 
-    def _initialize_new_run(self) -> wandb.wandb_sdk.wandb_run.Run:
+    def _initialize_new_run(self) -> wandb.sdk.wandb_run.Run:
         self.io_config.set_output_dir(self.experiment.to_path())
 
         return wandb.init(
