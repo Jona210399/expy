@@ -23,4 +23,4 @@ wandb:
   # Set to true to enable wandb logging
   enabled: true
   # Provide a run id to resume a run or set to null to start a new run
-  run_id: zmre5lry
+  run_id: kbk5m4ib

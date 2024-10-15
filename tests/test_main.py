@@ -32,7 +32,7 @@ def training_process(training_params: TrainingParameters):
 
 
 def main():
-    config_path = parse_config_path()
+    config_path = parse_config_path(default="config.yaml")
     config = ConfigLoader(config_path).get_config_as_dataclass(dataclass=Config)
     print(config)
 

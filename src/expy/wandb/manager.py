@@ -2,9 +2,9 @@ import os
 from dataclasses import asdict, dataclass, field
 from typing import Protocol, runtime_checkable
 
+import wandb
 from wandb.util import generate_id
 
-import wandb
 from expy.core import Experiment, IOConfiguration
 from expy.distributed.rank_zero import rank_zero_only
 from expy.wandb.dummy_run import WandbDummyRun
@@ -86,11 +86,13 @@ class WandbManager:
             resume="must",
             settings=wandb.Settings(_service_wait=300),
             config=asdict(self.config),
+            dir=self.io_config.output_dir,
         )
         return run
 
     def _initialize_new_run(self) -> wandb.sdk.wandb_run.Run:
         self.io_config.set_output_dir(self.experiment.to_path())
+        self.io_config.create_output_dir()
 
         return wandb.init(
             project=self.experiment.project_name,
@@ -98,5 +100,5 @@ class WandbManager:
             id=self.wandb_config.run_id,
             config=asdict(self.config),
             name="_".join([self.experiment.experiment_name, self.experiment.date_time]),
-            dir=self.experiment.to_path(),
+            dir=self.io_config.output_dir,
         )
