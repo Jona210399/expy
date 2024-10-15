@@ -98,4 +98,5 @@ class WandbManager:
             id=self.wandb_config.run_id,
             config=asdict(self.config),
             name="_".join([self.experiment.experiment_name, self.experiment.date_time]),
+            dir=self.experiment.to_path(),
         )
