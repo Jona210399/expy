@@ -30,13 +30,3 @@ class ConfigLoader:
 
     def get_config_as_dict(self) -> dict:
         return OmegaConf.to_container(self.config)
-
-
-if __name__ == "__main__":
-
-    def hello():
-        return 5
-
-    hello.rank = 10
-
-    print(hello.rank)
